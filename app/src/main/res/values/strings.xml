@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ExpenseShare</string>
+    <string name="manage_members">Manage Members</string>
+</resources>
