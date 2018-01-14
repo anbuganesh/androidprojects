@@ -75,7 +75,7 @@ class AddExpense : AppCompatActivity() {
            // println("amount value ${editTextAmount.toString().toDouble()}")
 
 
-            var expense = Expense(_ID= UUID.randomUUID().toString(),name = personName,amount=editTextAmount.text.toString().toDouble(),dateOfExpense = cal.time,expenseDetails = editDetails.toString())
+            var expense = Expense(_ID= UUID.randomUUID().toString(),name = personName,amount=editTextAmount.text.toString().toDouble(),dateOfExpense = cal.time,expenseDetails = editDetails.text.toString())
             expensemodel.addExpense(realm,expense)
             println("expense added success")
 

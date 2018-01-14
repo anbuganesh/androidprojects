@@ -25,6 +25,7 @@
         android:layout_height="27dp"
         android:layout_marginEnd="8dp"
         android:text="0"
+        android:textAlignment="viewStart"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/textTotalExpLabel"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,9 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
+        android:layout_marginEnd="9dp"
         android:layout_marginStart="8dp"
         android:text="Add Expense"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonViewExpense"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -47,7 +51,19 @@
         android:layout_marginBottom="52dp"
         android:layout_marginEnd="8dp"
         android:text="@string/manage_members"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonViewExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:layout_marginEnd="10dp"
+        android:text="View Expense"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonEditMembers" />
 
 </android.support.constraint.ConstraintLayout>
