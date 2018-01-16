@@ -1,6 +1,8 @@
 package com.example.ganesh.expenseshare
 
+import android.widget.TextView
 import io.realm.Realm
+import java.text.DecimalFormat
 
 
 /**
@@ -28,7 +30,11 @@ fun getExpenseSummary():  ArrayList<ExpenseSummary>
 
     val expensePerHead = TotalExpenseAmount/membercnt
 
+    val df = DecimalFormat("#.##")
 
+  //  var perheadtxt = findViewById<TextView>(R.id.textExpPerHeadVal)
+
+    val PerHead = df.format(expensePerHead).toString()
 
 
 
@@ -42,9 +48,14 @@ fun getExpenseSummary():  ArrayList<ExpenseSummary>
 
         val expenseresults = realm.where(Expense::class.java).equalTo("name",membername.name).sum("amount").toDouble().toString()
 
-                println("summary ${membername.name}  ${expenseresults}")
 
-        expSummaryList.add(ExpenseSummary(membername.name,expenseresults.toDouble(),expenseresults.toDouble()-expensePerHead))
+                val expdiff = expenseresults.toDouble()-expensePerHead
+                val expdiffStr = df.format(expdiff).toString()
+
+
+        println("summary ${membername.name}  ${expenseresults} ${expdiffStr}")
+
+        expSummaryList.add(ExpenseSummary(membername.name,expenseresults.toDouble(),expdiffStr.toDouble()))
     }
 
 

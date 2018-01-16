@@ -61,6 +61,8 @@ class AddPeople : AppCompatActivity() {
 
                    realm.commitTransaction()
 
+                   toast("New member addition success")
+
 
 
                    val query = realm.where(Member ::class.java)

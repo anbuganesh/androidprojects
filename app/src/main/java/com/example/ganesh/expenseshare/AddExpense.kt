@@ -1,6 +1,7 @@
 package com.example.ganesh.expenseshare
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -79,6 +80,8 @@ class AddExpense : AppCompatActivity() {
             expensemodel.addExpense(realm,expense)
             println("expense added success")
 
+            toast("Expense added successfully")
+
 
             var results = expensemodel.getExpenses(realm)
 
@@ -86,7 +89,8 @@ class AddExpense : AppCompatActivity() {
 
             println(personName);
 
-
+            var viewIntent = Intent(this,MainActivity::class.java)
+            startActivity(viewIntent)
 
 
         }
