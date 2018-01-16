@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import io.realm.Realm
+import org.w3c.dom.Text
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,12 +28,24 @@ class MainActivity : AppCompatActivity() {
 
         var expensemodel = ExpenseModel()
 
-        var totalexpense = expensemodel.getExpenses(realm).sum("amount")
+        var totalexpense : Double = expensemodel.getExpenses(realm).sum("amount").toDouble()
 
-        val totExpense = findViewById<TextView>(R.id.textTotalExpenseValue)
+        val totExpense: TextView = findViewById<TextView>(R.id.textTotalExpenseValue)
 
         totExpense.text = totalexpense.toString()
 
+
+        val query = realm.where(Member ::class.java)
+
+        val results = query.findAll().size.toDouble()
+
+        var perhead :Double = totalexpense / results
+
+        val df = DecimalFormat("#.##")
+
+        var perheadtxt = findViewById<TextView>(R.id.textExpPerHeadVal)
+
+        perheadtxt.text = df.format(perhead).toString()
 
 
 
