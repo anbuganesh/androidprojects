@@ -118,14 +118,14 @@ class MainActivity : AppCompatActivity() {
             )
 
             val name = rowMain.findViewById<TextView>(R.id.textViewSumName)
-            name.text = resultsSummary[position]!!.name
+            name.text = resultsSummary[position].name
 
             val descr = rowMain.findViewById<TextView>(R.id.textViewSumAmountSpent)
 
-            descr.text = resultsSummary[position]!!.amountsepent.toDouble().toString()
+            descr.text = resultsSummary[position].amountsepent.toDouble().toString()
 
             val expAmount = rowMain.findViewById<TextView>(R.id.textViewSumExcessDeficit)
-            expAmount.text = resultsSummary[position]!!.excessShortfall.toString()
+            expAmount.text = resultsSummary[position].excessShortfall.toString()
 
             return rowMain
 

@@ -10,11 +10,10 @@
         android:id="@+id/editDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="none"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editTextAmount"
         app:layout_constraintTop_toBottomOf="@+id/spinnerName" />
 
     <TextView
@@ -29,9 +28,9 @@
 
     <Spinner
         android:id="@+id/spinnerName"
-        android:layout_width="216dp"
-        android:layout_height="27dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="207dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="48dp"
         android:dropDownWidth="match_parent"
         android:fitsSystemWindows="false"
@@ -67,23 +66,20 @@
         android:id="@+id/editTextAmount"
         android:layout_width="wrap_content"
         android:layout_height="41dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editDetails"
         app:layout_constraintTop_toBottomOf="@+id/editDate" />
 
     <TextView
         android:id="@+id/textDescript"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="61dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Details"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/editDetails"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textAmount"
         app:layout_constraintTop_toTopOf="@+id/editDetails" />
 
     <EditText
@@ -105,7 +101,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="105dp"
         android:text="Save Expense"
-        android:textSize="24sp"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
