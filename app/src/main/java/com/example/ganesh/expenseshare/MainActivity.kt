@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -121,8 +123,12 @@ class MainActivity : AppCompatActivity() {
             name.text = resultsSummary[position].name
 
             val descr = rowMain.findViewById<TextView>(R.id.textViewSumAmountSpent)
+            //descr.gravity = Gravity.CENTER
+            val amountspent: String = resultsSummary[position].amountsepent.toDouble().toString()
 
-            descr.text = resultsSummary[position].amountsepent.toDouble().toString()
+            descr.text = amountspent
+
+
 
             val expAmount = rowMain.findViewById<TextView>(R.id.textViewSumExcessDeficit)
             expAmount.text = resultsSummary[position].excessShortfall.toString()
