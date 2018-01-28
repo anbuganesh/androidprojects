@@ -19,11 +19,23 @@
         </activity>
         <activity android:name=".AddPeople" />
         <activity android:name=".AddExpense" />
-        <activity android:name=".ViewExpense"></activity>
+        <activity android:name=".ViewExpense" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".LauncherActivity"
+            android:label="@string/title_activity_launcher"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ShareRide"></activity>
     </application>
 
 </manifest>
