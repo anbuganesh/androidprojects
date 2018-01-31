@@ -67,7 +67,7 @@ class RiderModel : RiderInterface {
 
         var totalkm = totdist*passengercnt
 
-        println("totalkm $totalkm  totalafare $totfare")
+        println("totalKM $totalkm  totalafare $totfare")
 
         val perkm :Double = totfare.toDouble()/totalkm.toDouble()
 
