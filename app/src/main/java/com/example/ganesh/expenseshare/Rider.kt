@@ -15,7 +15,7 @@ open class Rider
 (       @PrimaryKey open var _ID: Int = 0,
         open var name: String = "",
         open var rideKm: Double = 0.0,
-        open var rideAmount: Double = 0.0,
+        open var rideAmount: Int = 0,
         open var rideDate: java.util.Date? = null) : RealmObject()
 
 {
@@ -24,7 +24,7 @@ open class Rider
             _ID: Int = 1,
             name: String = this.name,
             rideKm: Double = this.rideKm,
-            rideAmount: Double = this.rideAmount,
+            rideAmount: Int = this.rideAmount,
             rideDate: java.util.Date? = this.rideDate
     ) = Rider(_ID,name,rideKm,rideAmount,rideDate)
 
@@ -60,19 +60,40 @@ class RiderModel : RiderInterface {
         return realm.where(Rider::class.java).findAll()
     }
 
-    fun getRidersdummy(): ArrayList<Rider>{
+    fun getRidersdummy(totfare:Int, totdist: Int, passengercnt: Int): ArrayList<Rider>{
 
         var riders : ArrayList<Rider> = ArrayList()
 
 
+        var totalkm = totdist*passengercnt
 
-        var rider = Rider(1,"pass1",10.0,100.0)
+        println("totalkm $totalkm  totfare $totfare")
 
-        var a = riders.add(rider)
+        val perkm :Double = totfare.toDouble()/totalkm.toDouble()
 
-         rider = Rider(2,"pass2",20.0,200.0)
+        println("perkm $perkm")
 
-         a = riders.add(rider)
+
+        val fareperpassenger :Double  = perkm*totdist
+
+        println("fareperpassenger $fareperpassenger")
+
+
+
+
+        for (i in 1..passengercnt)
+        {
+
+            var rider = Rider(i, "pass $i", totdist.toDouble(), fareperpassenger.toInt())
+
+            var a = riders.add(rider)
+
+        }
+
+
+        // rider = Rider(2,"pass2",20.0,200.0)
+
+        // a = riders.add(rider)
 
         return riders
 

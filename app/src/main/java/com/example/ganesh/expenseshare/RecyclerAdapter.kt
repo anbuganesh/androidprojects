@@ -23,7 +23,7 @@ class RecyclerAdapter(private val riders: ArrayList<Rider>) : RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerAdapter.RiderHolder {
-        var inflatedView = parent!!.inflate(R.layout.rowshare_ride, false)
+        val inflatedView = parent!!.inflate(R.layout.rowshare_ride, false)
         return RiderHolder(inflatedView)    }
 
 
