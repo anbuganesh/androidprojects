@@ -79,17 +79,20 @@ class RiderModel : RiderInterface {
         println("fareperpassenger $fareperpassenger")
 
 
+        var rider = Rider(0, "pass header", 0.00, 0)
 
+        var a = riders.add(rider)
 
         for (i in 1..passengercnt)
         {
+            println("i value $i")
+             rider = Rider(i, "pass $i", totdist.toDouble(), fareperpassenger.toInt())
 
-            var rider = Rider(i, "pass $i", totdist.toDouble(), fareperpassenger.toInt())
-
-            var a = riders.add(rider)
+             a = riders.add(rider)
 
         }
 
+        print("riders count ${riders.count()}")
 
         // rider = Rider(2,"pass2",20.0,200.0)
 

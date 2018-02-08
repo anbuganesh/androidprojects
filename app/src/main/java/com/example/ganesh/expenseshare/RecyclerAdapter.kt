@@ -6,65 +6,126 @@ package com.example.ganesh.expenseshare
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.getId
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.rowshare_ride.view.*
+import android.view.WindowManager
+import android.widget.EditText
+import android.widget.TextView
 
-class RecyclerAdapter(private val riders: ArrayList<Rider>) : RecyclerView.Adapter<RecyclerAdapter.RiderHolder>(){
+
+
+
+
+class RecyclerAdapter(private val riders: ArrayList<Rider>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+    val TYPE_HEADER = 0
+    val TYPE_ROWDATA = 1
+
+    var rowposition = 0
+
+
     override fun getItemCount(): Int {
+
+        println("getitemcount    ${riders.size}")
        return riders.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.RiderHolder, position: Int) {
-        val itemRider = riders[position]
-        holder.bindRider(itemRider)
+    override fun getItemViewType(position: Int): Int {
+
+        println("position inside getItemViewtype ${position}")
+
+        if (position == 0  && rowposition ==0  ) {
+             return TYPE_HEADER
+            rowposition=1
+        }
+
+       return TYPE_ROWDATA
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerAdapter.RiderHolder {
-        val inflatedView = parent!!.inflate(R.layout.rowshare_ride, false)
-        return RiderHolder(inflatedView)    }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        println("position onBindViewHolder ${position}")
+
+        if (holder is HeaderViewHolder )
+        {
+            println("insider headerview holder")
+            holder.headerName.setText("Name")
+            holder.headerDistance.setText("Distance Travelled")
+            holder.headerFare.setText("Ur Share Amt.")
+        }
+        if  (holder is ListViewHolder ) {
+
+            var rider = riders[position]
+
+            println("position inside list view if   $position")
+            //if (position < riders.size && position > 0) {
+
+                //if (view.getTag().toString() != "11") {
+                //Picasso.with(view.context).load(photo.url).into(view.itemImage)
+
+                var name = rider.name.toString()
+                holder.editName.setText(rider.name)
+
+                holder.editDistance.setText(rider.rideKm.toString())
+
+                holder.editFare.setText(rider.rideAmount.toString())
+            //}
+
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+
+        println("viewType ${viewType}")
+        if (viewType == TYPE_HEADER)
+        {
+            val inflatedheaderView = parent!!.inflate(R.layout.recyclerheader, false)
+            return HeaderViewHolder(inflatedheaderView)
+
+        }
+        else  {
+            val inflatedView = parent!!.inflate(R.layout.rowshare_ride, false)
+            return ListViewHolder(inflatedView)
+        }
+
+    }
+
+    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var headerName: TextView
+
+        var headerDistance: TextView
+
+        var headerFare: TextView
 
 
-    class RiderHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
-        //2
-        private var view: View = v
-        private var rider: Rider? = null
-
-        //3
         init {
-            v.setOnClickListener(this)
+            headerName = itemView.findViewById<TextView>(R.id.textViewName) as TextView
+            headerDistance = itemView.findViewById<TextView>(R.id.textViewdistance) as TextView
+            headerFare = itemView.findViewById<TextView>(R.id.textViewFare) as TextView
+
         }
 
-        //4
-        override fun onClick(v: View) {
-            Log.d("RecyclerView", "CLICK!")
-        }
 
-        companion object {
-            //5
-            private val RIDER_KEY = "RIDER"
-        }
-
-        fun bindRider(rider: Rider) {
-            this.rider = rider
-            //Picasso.with(view.context).load(photo.url).into(view.itemImage)
-
-            var name = rider.name.toString()
-            view.editTextName.setText(rider.name)
-
-            view.editTextkm.setText(rider.rideKm.toString())
-
-            view.editTextFare.setText(rider.rideAmount.toString())
-
-
-           // view.itemDate.text = photo.humanDate
-            //view.itemDescription.text = photo.explanation
-        }
     }
 
+    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var editName: EditText
+        var editDistance: EditText
+        var editFare: EditText
 
+
+
+        init {
+            editName = itemView.findViewById<EditText>(R.id.editTextName) as EditText
+            editDistance = itemView.findViewById<EditText>(R.id.editTextkm) as EditText
+            editFare = itemView.findViewById<EditText>(R.id.editTextFare) as EditText
+
+
+        }
+    }
 
 }
 
