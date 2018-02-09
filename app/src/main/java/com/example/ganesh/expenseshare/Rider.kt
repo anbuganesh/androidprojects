@@ -12,21 +12,19 @@ import kotlin.collections.ArrayList
  */
 
 open class Rider
-(       @PrimaryKey open var _ID: Int = 0,
+(        open var _ID: Int = 0,
         open var name: String = "",
         open var rideKm: Double = 0.0,
-        open var rideAmount: Int = 0,
-        open var rideDate: java.util.Date? = null) : RealmObject()
+        open var rideAmount: Int = 0) : RealmObject()
 
 {
     fun copy(
 
-            _ID: Int = 1,
+            _ID: Int = this._ID,
             name: String = this.name,
             rideKm: Double = this.rideKm,
-            rideAmount: Int = this.rideAmount,
-            rideDate: java.util.Date? = this.rideDate
-    ) = Rider(_ID,name,rideKm,rideAmount,rideDate)
+            rideAmount: Int = this.rideAmount)
+            = Rider(_ID,name,rideKm,rideAmount)
 
 }
 

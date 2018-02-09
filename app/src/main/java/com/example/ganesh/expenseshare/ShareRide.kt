@@ -1,5 +1,6 @@
 package com.example.ganesh.expenseshare
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,7 +13,13 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import io.realm.Realm
+import io.realm.RealmList
 import kotlinx.android.synthetic.main.activity_share_ride.*
+import java.text.SimpleDateFormat
+import java.util.*
+
 //import sun.util.locale.provider.LocaleProviderAdapter.getAdapter
 
 
@@ -64,6 +71,7 @@ class ShareRide : AppCompatActivity(), TextWatcher {
 
         title=getString(R.string.titleshare)
 
+        var realm = Realm.getDefaultInstance()
 
 
         linearLayoutManager = LinearLayoutManager(this)
@@ -72,7 +80,33 @@ class ShareRide : AppCompatActivity(), TextWatcher {
         RecyclerView.layoutManager = linearLayoutManager
 
 
+        //Date field
 
+        val textView = findViewById<TextView>(R.id.textViewDateVal)
+
+        textView.text = SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis())
+
+
+        var cal = Calendar.getInstance()
+
+        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val myFormat = "dd.MM.yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            textView.text = sdf.format(cal.time)
+            println("hello $cal.getTime()")
+
+        }
+
+        textView.setOnClickListener {
+            DatePickerDialog(this@ShareRide, dateSetListener,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
 
           editTextPassngerCount.addTextChangedListener(this)
 
@@ -165,37 +199,78 @@ class ShareRide : AppCompatActivity(), TextWatcher {
         }
 
 
+        var buttonSaveRide = findViewById<Button>(R.id.buttonSaveRide)
 
 
-           // if (Build.VERSION.SDK_INT >= 11) {
-          /*      RecyclerView.addOnLayoutChangeListener(View.OnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-                  println("Inside layout change listener")
-                    var currentScrollPosition = 0
+        buttonSaveRide.setOnClickListener{
 
-                    if (bottom < oldBottom) {
-                        RecyclerView.postDelayed(Runnable { RecyclerView.scrollToPosition(6) }, 100)
-                    }
+            val totdistance = TotalKm()
+            val totfare = TotalFare()
+            val noofriders=passengerCnt()
 
-                    if (bottom < oldBottom) {
-                        RecyclerView.postDelayed(Runnable {
-                            RecyclerView.smoothScrollToPosition(
-                                    RecyclerView.getAdapter().getItemCount() - 1)
-                        }, 100)
-                    }*/
+            var ridersarr : RealmList<Rider> = RealmList()
 
-                    /*if (bottom < oldBottom) {
-                        if (currentScrollPosition >=
-                                RecyclerView.computeVerticalScrollRange()) {
-                            RecyclerView.post {
-                                RecyclerView.overScrollMode = View.OVER_SCROLL_NEVER
-                                RecyclerView.smoothScrollBy(0, RecyclerView.computeVerticalScrollRange() - RecyclerView.computeVerticalScrollOffset() + RecyclerView.computeVerticalScrollExtent())
-                            }
-                        }
-                    } else {
-                        RecyclerView.overScrollMode = View.OVER_SCROLL_ALWAYS
-                    }
-                })*/
-                RecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            for ( i in 1..adapter.itemCount-1) {
+
+                val view = RecyclerView.getChildAt(i)
+
+                val km = view.findViewById<EditText>(R.id.editTextkm)
+
+                val kmdouble :Double = km.text.toString().toDouble()
+
+                var textFare = view.findViewById<EditText>(R.id.editTextFare)
+
+                val textFareint = Integer.parseInt(textFare.text.toString())
+
+
+                var name = view.findViewById<EditText>(R.id.editTextName)
+
+
+                var rider = Rider(i+1, name.toString(),kmdouble,textFareint)
+
+                var a = ridersarr.add(rider)
+
+               // textFare.setText(fare)
+
+
+
+
+            }
+
+
+            var ride1 = Ride::class.java.newInstance()
+
+
+            ride1._ID = UUID.randomUUID().toString()
+            ride1.NoofRiders= noofriders
+            ride1.RideDescr="hello"
+            ride1.TotalDistance=totdistance.toDouble()
+            ride1.TotalFare=totfare
+            ride1.Riders = ridersarr
+            ride1.rideDate =null
+
+
+
+
+
+            var ridemodel = RideModel()
+
+            ridemodel.addRide(realm,ride1)
+
+            toast("Ride Saved successfully")
+
+            var results = ridemodel.getRides(realm)
+
+            println(results[0]!!.TotalDistance)
+
+
+        }
+
+
+
+
+
+        RecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     var currentScrollPosition = 0
 
 
