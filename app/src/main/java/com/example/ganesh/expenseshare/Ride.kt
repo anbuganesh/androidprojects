@@ -30,7 +30,7 @@ interface RideInterface {
     //fun delExpense(realm: Realm, _ID: Int): Boolean
     //fun editExpense(realm: Realm, expense: Expense): Boolean
     //fun getExpense(realm: Realm, _ID: Int): Expense
-    // fun removeExpense(realm: Realm)
+    fun removeRide(realm: Realm,_id: String) : Boolean
 }
 
 open class RideModel: RideInterface {
@@ -47,6 +47,25 @@ open class RideModel: RideInterface {
 
             return false
         }
+    }
+
+    override fun removeRide(realm: Realm,_id: String) : Boolean{
+       try{
+           realm.beginTransaction()
+        var ride: Ride = Ride()
+        var ride1 = realm.where(Ride::class.java).equalTo("_ID",_id)!!.findAll()!!
+       ride1.deleteAllFromRealm()
+        realm.commitTransaction()
+        return true
+    } catch (e: Exception) {
+        println(e)
+        realm.commitTransaction()
+
+        return false
+    }
+
+
+
     }
 
     fun getRides(realm: Realm): RealmResults<Ride> {

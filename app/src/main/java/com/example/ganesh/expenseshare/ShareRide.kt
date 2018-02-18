@@ -2,6 +2,7 @@ package com.example.ganesh.expenseshare
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -74,6 +75,7 @@ class ShareRide : AppCompatActivity(), TextWatcher {
         var realm = Realm.getDefaultInstance()
 
 
+
         linearLayoutManager = LinearLayoutManager(this)
 
 
@@ -108,26 +110,34 @@ class ShareRide : AppCompatActivity(), TextWatcher {
                     cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-          editTextPassngerCount.addTextChangedListener(this)
+        val totdist = findViewById<EditText>(R.id.editTextTotalDistance1)
+        totdist.requestFocus()
+
+
+        editTextPassngerCount.addTextChangedListener(this)
 
         val buttonresetride = findViewById<Button>(R.id.buttonReset)
 
 
         buttonresetride.setOnClickListener()
         {
-            val totfare = findViewById<EditText>(R.id.editTextTotalDistance1)
-
-            totfare.setText("")
-
-            val totdist = findViewById<EditText>(R.id.editTextTotalFare)
+            val totdist = findViewById<EditText>(R.id.editTextTotalDistance1)
 
             totdist.setText("")
+
+            val totfare = findViewById<EditText>(R.id.editTextTotalFare)
+
+            totfare.setText("")
 
             val passcnt = findViewById<EditText>(R.id.editTextPassngerCount)
 
             passcnt.setText("")
 
-            totfare.requestFocus()
+            val ridedtls = findViewById<EditText>(R.id.editTextRideDetails)
+
+            ridedtls.setText("")
+
+            totdist.requestFocus()
 
 
 
@@ -178,7 +188,11 @@ class ShareRide : AppCompatActivity(), TextWatcher {
 
                 val fare :Int =  (kmtravelled * perkmfare).toInt()
 
-                var rider = Rider(i+1, "pass $i", kmtravelled, fare)
+                var textname = view.findViewById<EditText>(R.id.editTextName)
+
+                val ename = textname.text.toString()
+
+                var rider = Rider(i+1, ename, kmtravelled, fare)
 
                 var a = ridersarr.add(rider)
 
@@ -198,6 +212,13 @@ class ShareRide : AppCompatActivity(), TextWatcher {
 
         }
 
+        var buttonViewRide = findViewById<Button>(R.id.buttonViewRides)
+
+        buttonViewRide.setOnClickListener{
+            var addIntent = Intent(this,ViewRides::class.java)
+            startActivity(addIntent)
+        }
+
 
         var buttonSaveRide = findViewById<Button>(R.id.buttonSaveRide)
 
@@ -207,6 +228,8 @@ class ShareRide : AppCompatActivity(), TextWatcher {
             val totdistance = TotalKm()
             val totfare = TotalFare()
             val noofriders=passengerCnt()
+            val ridedescr= findViewById<EditText>(R.id.editTextRideDetails)
+            val ridedescrtext = ridedescr.text.toString()
 
             var ridersarr : RealmList<Rider> = RealmList()
 
@@ -223,7 +246,7 @@ class ShareRide : AppCompatActivity(), TextWatcher {
                 val textFareint = Integer.parseInt(textFare.text.toString())
 
 
-                var name = view.findViewById<EditText>(R.id.editTextName)
+                var name = view.findViewById<EditText>(R.id.editTextName).text
 
 
                 var rider = Rider(i+1, name.toString(),kmdouble,textFareint)
@@ -243,11 +266,11 @@ class ShareRide : AppCompatActivity(), TextWatcher {
 
             ride1._ID = UUID.randomUUID().toString()
             ride1.NoofRiders= noofriders
-            ride1.RideDescr="hello"
+            ride1.RideDescr=ridedescrtext
             ride1.TotalDistance=totdistance.toDouble()
             ride1.TotalFare=totfare
             ride1.Riders = ridersarr
-            ride1.rideDate =null
+            ride1.rideDate = cal.time
 
 
 

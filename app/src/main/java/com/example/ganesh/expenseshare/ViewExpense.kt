@@ -39,6 +39,8 @@ class ViewExpense : AppCompatActivity() {
 
     private class customAdapter(context: Context): BaseAdapter() {
 
+
+
         var realm = Realm.getDefaultInstance()
 
         var expensemodel = ExpenseModel()

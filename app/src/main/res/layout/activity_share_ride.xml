@@ -12,11 +12,11 @@
         android:id="@+id/NScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/conslay1"
@@ -94,10 +94,12 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/RecyclerView"
                 android:layout_width="352dp"
-                android:layout_height="wrap_content"
+                android:layout_height="210dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSaveRide"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,20 +112,20 @@
                 android:layout_width="82dp"
                 android:layout_height="wrap_content"
                 android:text="Reset"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonComputeShare"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/buttonSaveRide"
-                app:layout_constraintTop_toTopOf="@+id/buttonSaveRide" />
+                app:layout_constraintStart_toEndOf="@+id/buttonComputeShare" />
 
             <Button
                 android:id="@+id/buttonComputeShare"
                 android:layout_width="wrap_content"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:text="Share"
-                app:layout_constraintEnd_toStartOf="@+id/buttonSaveRide"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonSaveRide"
+                app:layout_constraintEnd_toStartOf="@+id/buttonReset"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/buttonSaveRide" />
+                app:layout_constraintStart_toEndOf="@+id/buttonSaveRide" />
 
             <TextView
                 android:id="@+id/textViewDate"
@@ -160,8 +162,9 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="From work to home"
-                android:inputType="textPersonName|textWebEditText"
+                android:inputType="text|textCapWords"
                 android:textSize="14sp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/textViewDateVal"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDateVal" />
 
@@ -172,9 +175,19 @@
                 android:layout_marginBottom="8dp"
                 android:text="Save"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/buttonReset"
+                app:layout_constraintEnd_toStartOf="@+id/buttonComputeShare"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/buttonComputeShare" />
+                app:layout_constraintStart_toEndOf="@+id/buttonViewRides" />
+
+            <Button
+                android:id="@+id/buttonViewRides"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Rides"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonSaveRide"
+                app:layout_constraintEnd_toStartOf="@+id/buttonSaveRide"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
